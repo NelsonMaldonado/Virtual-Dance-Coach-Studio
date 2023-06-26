@@ -25,6 +25,12 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "8eb0b8d7-a5f4-4259-bc9c-7e3afef83242"
+      }
+    },
+    "owner": "nellythesav"
   }
 }
