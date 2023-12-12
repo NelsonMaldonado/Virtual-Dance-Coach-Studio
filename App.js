@@ -3,7 +3,7 @@ import styled from "styled-components/native"
 import { Button, Text, StyleSheet, View, Pressable } from "react-native"
 import { Audio } from "expo-av"
 import React, { useEffect, useState } from "react"
-
+import list from "./assets/components/musicList"
 export default function App() {
   const [sound, setSound] = React.useState(null)
 
@@ -31,42 +31,14 @@ export default function App() {
       <StatusBar style="light-content" />
       {/* //Divider here */}
       <View style={styles.buttonContainer}>
-        <Pressable style={styles.button}>
-          <Text>Descarga</Text>
-        </Pressable>
-        <Pressable style={styles.button}>
-          <Text>Descarga</Text>
-        </Pressable>
-        <Pressable style={styles.button}>
-          <Text>Descarga</Text>
-        </Pressable>
-        <Pressable style={styles.button}>
-          <Text>Descarga</Text>
-        </Pressable>
-        <Pressable style={styles.button}>
-          <Text>Descarga</Text>
-        </Pressable>
-        <Pressable style={styles.button}>
-          <Text>Descarga</Text>
-        </Pressable>
-        <Pressable style={styles.button}>
-          <Text>Descarga</Text>
-        </Pressable>
-        <Pressable style={styles.button}>
-          <Text>Descarga</Text>
-        </Pressable>
-        <Pressable style={styles.button}>
-          <Text>Descarga</Text>
-        </Pressable>
-        <Pressable style={styles.button}>
-          <Text>Descarga</Text>
-        </Pressable>
-        <Pressable style={styles.button}>
-          <Text>Descarga</Text>
-        </Pressable>
-        <Pressable style={styles.button}>
-          <Text>Descarga</Text>
-        </Pressable>
+        {list.map((song) => (
+          <Pressable style={styles.button} key={song.id}>
+            <Text>{song.name}</Text>
+          </Pressable>
+        ))}
+        {/* <Pressable style={styles.button}>
+          <Text>{list[0].name}</Text>
+        </Pressable> */}
       </View>
       {/* //Buttons Container ends here */}
       <View>
@@ -91,7 +63,7 @@ const styles = StyleSheet.create({
     alignContent: "center",
 
     width: 350,
-    height: 560,
+    height: 470,
     borderColor: "blue",
     borderWidth: 0.5,
   },
@@ -100,8 +72,8 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
   },
   button: {
-    display: "flex",
     backgroundColor: "red",
+    textAlignVertical: "auto",
 
     width: 90,
     height: 90,
