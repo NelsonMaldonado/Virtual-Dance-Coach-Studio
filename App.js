@@ -1,48 +1,73 @@
 import { StatusBar } from "expo-status-bar"
-import styled from "styled-components/native"
 import { Button, Text, StyleSheet, View, Pressable } from "react-native"
 import { Audio } from "expo-av"
-import React, { useEffect, useState } from "react"
-import list from "./assets/components/musicList"
+import React, { useState } from "react"
+import soundsArray from "./assets/components/musicList"
+
+const stop = require("./assets/sounds/stop.mp3")
 export default function App() {
   const [sound, setSound] = React.useState(null)
+  const [titu, setTitu] = React.useState("Click a button to start")
+  const [url, setUrl] = React.useState("./assets/sounds/sound.mp3")
+  const [soundObject, setSoundObject] = useState(null)
 
-  useEffect(() => {
-    const fetchSound = async () => {
-      const { sound } = await Audio.Sound.createAsync(
-        require("./assets/sounds/sound.mp3")
-      )
-      setSound(sound)
+  const playSound = async (sound, x) => {
+    setTitu(`Playing: ${x} ♫ `)
+    if (soundObject !== null) {
+      await soundObject.unloadAsync() // Stop and unload any previously playing sound
     }
 
-    fetchSound()
-  }, [])
+    const { sound: newSoundObject } = await Audio.Sound.createAsync(sound)
+    setSoundObject(newSoundObject)
 
-  const playSound = async () => {
-    if (sound) {
-      await sound.stopAsync()
-      await sound.playAsync()
+    try {
+      await newSoundObject.playAsync()
+    } catch (error) {
+      console.error("Error playing sound:", error)
+    }
+  }
+
+  const stopSound = async () => {
+    setTitu(`Press a button again 🕺🏽`)
+    if (soundObject !== null) {
+      try {
+        await soundObject.stopAsync()
+        await soundObject.unloadAsync()
+        setSoundObject(null)
+      } catch (error) {
+        console.error("Error stopping sound:", error)
+      }
     }
   }
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Salsa Practice</Text>
+      <Text style={styles.title}>SalsaColombia Dance Academy</Text>
+      <Text style={styles.subTitle}> {titu}</Text>
+
       <StatusBar style="light-content" />
       {/* //Divider here */}
       <View style={styles.buttonContainer}>
-        {list.map((song) => (
-          <Pressable style={styles.button} key={song.id}>
-            <Text>{song.name}</Text>
+        {soundsArray.map((song) => (
+          <Pressable
+            key={song.id}
+            style={styles.button}
+            onPress={() => playSound(song.id, song.name)}
+          >
+            <Text style={styles.textInside}>{song.name}</Text>
           </Pressable>
         ))}
-        {/* <Pressable style={styles.button}>
-          <Text>{list[0].name}</Text>
-        </Pressable> */}
       </View>
       {/* //Buttons Container ends here */}
       <View>
-        <Button onPress={playSound} title="Click Me" />
+        <Pressable
+          style={styles.stopButton}
+          onPress={() => {
+            stopSound(stop)
+          }}
+        >
+          <Text style={styles.textInside}>Stop</Text>
+        </Pressable>
       </View>
     </View>
   )
@@ -51,7 +76,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: "#170D54",
     alignItems: "center",
     justifyContent: "center",
   },
@@ -70,13 +95,32 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     paddingBottom: 10,
+    color: "white",
   },
   button: {
-    backgroundColor: "red",
+    backgroundColor: "#9754CB",
     textAlignVertical: "auto",
+    borderRadius: 4,
 
     width: 90,
     height: 90,
     margin: 10,
+  },
+  textInside: {
+    textAlign: "center",
+
+    color: "white",
+  },
+  stopButton: {
+    backgroundColor: "red",
+    textAlignVertical: "auto",
+    borderRadius: 4,
+    color: "white",
+    width: 90,
+    height: 40,
+    margin: 10,
+  },
+  subTitle: {
+    color: "#DEACF5",
   },
 })
