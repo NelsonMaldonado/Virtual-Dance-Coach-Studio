@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar"
-import { Button, Text, StyleSheet, View, Pressable } from "react-native"
+import { Button, Text, StyleSheet, View, Pressable, Switch } from "react-native"
 import { Audio } from "expo-av"
 import React, { useState } from "react"
 import { Image } from "expo-image"
@@ -12,14 +12,20 @@ export default function App() {
   const [titu, setTitu] = React.useState("Click a button to start")
   const [url, setUrl] = React.useState("./assets/sounds/sound.mp3")
   const [soundObject, setSoundObject] = useState(null)
+  const [isEnabled, setIsEnabled] = useState(false)
+  const toggleSwitch = () => {
+    setIsEnabled((previousState) => !previousState)
+  }
 
-  const playSound = async (sound, x) => {
+  const playSound = async (sound, x, loop = isEnabled) => {
     setTitu(`Playing: ${x} ♫ `)
     if (soundObject !== null) {
       await soundObject.unloadAsync() // Stop and unload any previously playing sound
     }
 
-    const { sound: newSoundObject } = await Audio.Sound.createAsync(sound)
+    const { sound: newSoundObject } = await Audio.Sound.createAsync(sound, {
+      isLooping: loop,
+    })
     setSoundObject(newSoundObject)
 
     try {
@@ -46,7 +52,7 @@ export default function App() {
     <View style={styles.container}>
       <Image
         source={require("./assets/sclogo.png")}
-        style={{ width: 200, height: 200, marginBottom: 20 }}
+        style={{ width: 100, height: 100, marginBottom: 20 }}
         resizeMode="contain"
       />
       <Text style={styles.title}>SalsaColombia Dance Academy</Text>
@@ -59,7 +65,7 @@ export default function App() {
           <Pressable
             key={song.id}
             style={styles.button}
-            onPress={() => playSound(song.id, song.name)}
+            onPress={() => playSound(song.id, song.name, isEnabled)}
           >
             <Text style={styles.textInside}>{song.name}</Text>
           </Pressable>
@@ -67,6 +73,16 @@ export default function App() {
       </View>
       {/* //Buttons Container ends here */}
       <View>
+        <View style={styles.toggleDiv}>
+          <Text style={styles.loopTitle}>Loop</Text>
+          <Switch
+            trackColor={{ false: "#767577", true: "#7CDD6D" }}
+            thumbColor={isEnabled ? "#f5dd4b" : "#f4f3f4"}
+            ios_backgroundColor="#3e3e3e"
+            onValueChange={toggleSwitch}
+            value={isEnabled}
+          />
+        </View>
         <Pressable
           style={styles.stopButton}
           onPress={() => {
@@ -130,5 +146,16 @@ const styles = StyleSheet.create({
   subTitle: {
     color: "#DEACF5",
     marginBottom: 20,
+  },
+  loopTitle: {
+    color: "white",
+    marginTop: 1,
+    marginRight: 20,
+    fontSize: 20,
+  },
+  toggleDiv: {
+    display: "flex",
+    flexDirection: "row",
+    alignContent: "space-between",
   },
 })
