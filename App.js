@@ -13,8 +13,13 @@ export default function App() {
   const [url, setUrl] = React.useState("./assets/sounds/sound.mp3")
   const [soundObject, setSoundObject] = useState(null)
   const [isEnabled, setIsEnabled] = useState(false)
+  const [countDown, setCountDown] = useState(false)
   const toggleSwitch = () => {
     setIsEnabled((previousState) => !previousState)
+  }
+
+  const countDownSwitch = () => {
+    setCountDown((previousState) => !previousState)
   }
 
   const playSound = async (sound, x, loop = isEnabled) => {
@@ -72,26 +77,41 @@ export default function App() {
         ))}
       </View>
       {/* //Buttons Container ends here */}
-      <View>
+      {/* loop and countdown container starts here */}
+
+      <View style={styles.toggleDiv}>
         <View style={styles.toggleDiv}>
-          <Text style={styles.loopTitle}>Loop</Text>
+          <Text style={styles.toggleTitle}>Loop</Text>
           <Switch
             trackColor={{ false: "#767577", true: "#7CDD6D" }}
-            thumbColor={isEnabled ? "#f5dd4b" : "#f4f3f4"}
+            thumbColor={isEnabled ? "f4f3f4" : "#f4f3f4"}
             ios_backgroundColor="#3e3e3e"
             onValueChange={toggleSwitch}
             value={isEnabled}
           />
         </View>
-        <Pressable
-          style={styles.stopButton}
-          onPress={() => {
-            stopSound(stop)
-          }}
-        >
-          <Text style={styles.textInside}>Stop</Text>
-        </Pressable>
+
+        <View style={styles.toggleDiv}>
+          <Text style={styles.toggleTitle}>Countdown</Text>
+          <Switch
+            trackColor={{ false: "#767577", true: "#7CDD6D" }}
+            thumbColor={countDown ? "#f4f3f4b" : "#f4f3f4"}
+            ios_backgroundColor="#3e3e3e"
+            onValueChange={countDownSwitch}
+            value={countDown}
+          />
+        </View>
+
+        {/* Loop and countdown container ends here */}
       </View>
+      <Pressable
+        style={styles.stopButton}
+        onPress={() => {
+          stopSound(stop)
+        }}
+      >
+        <Text style={styles.textInside}>Stop</Text>
+      </Pressable>
     </View>
   )
 }
@@ -114,6 +134,7 @@ const styles = StyleSheet.create({
     height: 470,
     borderColor: "blue",
     borderWidth: 0.5,
+    marginBottom: 20,
   },
   title: {
     fontSize: 24,
@@ -142,16 +163,18 @@ const styles = StyleSheet.create({
     width: 90,
     height: 40,
     margin: 10,
+    marginTop: 20,
   },
   subTitle: {
     color: "#DEACF5",
     marginBottom: 20,
   },
-  loopTitle: {
+  toggleTitle: {
     color: "white",
     marginTop: 1,
     marginRight: 20,
     fontSize: 20,
+    marginStart: 20,
   },
   toggleDiv: {
     display: "flex",
