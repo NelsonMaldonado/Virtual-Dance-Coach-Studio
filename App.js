@@ -6,7 +6,7 @@ import { Image } from "expo-image"
 
 import soundsArray from "./assets/components/musicList"
 
-const stop = require("./assets/sounds/stop.mp3")
+const countSound = require("./assets/sounds/countdown.mp3")
 export default function App() {
   const [sound, setSound] = React.useState(null)
   const [titu, setTitu] = React.useState("Click a button to start")
@@ -21,7 +21,16 @@ export default function App() {
   const countDownSwitch = () => {
     setCountDown((previousState) => !previousState)
   }
-
+  const playSound1 = async () => {
+    const { sound: soundObject } = await Audio.Sound.createAsync(
+      require("./assets/sounds/countdown.mp3")
+    )
+    try {
+      await soundObject.playAsync()
+    } catch (error) {
+      console.error("Error playing countdown sound:", error)
+    }
+  }
   const playSound = async (sound, x, loop = isEnabled) => {
     setTitu(`Playing: ${x} ♫ `)
     if (soundObject !== null) {
@@ -37,6 +46,16 @@ export default function App() {
       await newSoundObject.playAsync()
     } catch (error) {
       console.error("Error playing sound:", error)
+    }
+  }
+  const playWithCount = () => {
+    console.log("Button pressed")
+    if (countDown) {
+      playSound1()
+      console.log("Countdown is on")
+    } else if (!countDown) {
+      playSound()
+      console.log("Countdown is off")
     }
   }
 
@@ -58,7 +77,7 @@ export default function App() {
       <Image
         source={require("./assets/sclogo.png")}
         style={{ width: 100, height: 100, marginBottom: 20 }}
-        resizeMode="contain"
+        contentFit="contain"
       />
       <Text style={styles.title}>SalsaColombia Dance Academy</Text>
       <Text style={styles.subTitle}> {titu}</Text>
@@ -70,6 +89,7 @@ export default function App() {
           <Pressable
             key={song.id}
             style={styles.button}
+            // onPress={() => playSound(song.id, song.name, isEnabled)}
             onPress={() => playSound(song.id, song.name, isEnabled)}
           >
             <Text style={styles.textInside}>{song.name}</Text>
@@ -107,7 +127,7 @@ export default function App() {
       <Pressable
         style={styles.stopButton}
         onPress={() => {
-          stopSound(stop)
+          stopSound()
         }}
       >
         <Text style={styles.textInside}>Stop</Text>
