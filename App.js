@@ -2,6 +2,8 @@ import { StatusBar } from "expo-status-bar"
 import { Button, Text, StyleSheet, View, Pressable } from "react-native"
 import { Audio } from "expo-av"
 import React, { useState } from "react"
+import { Image } from "expo-image"
+
 import soundsArray from "./assets/components/musicList"
 
 const stop = require("./assets/sounds/stop.mp3")
@@ -42,10 +44,15 @@ export default function App() {
 
   return (
     <View style={styles.container}>
+      <Image
+        source={require("./assets/sclogo.png")}
+        style={{ width: 200, height: 200, marginBottom: 20 }}
+        resizeMode="contain"
+      />
       <Text style={styles.title}>SalsaColombia Dance Academy</Text>
       <Text style={styles.subTitle}> {titu}</Text>
 
-      <StatusBar style="light-content" />
+      <StatusBar backgroundColor="white" barStyle="dark-content" />
       {/* //Divider here */}
       <View style={styles.buttonContainer}>
         {soundsArray.map((song) => (
@@ -122,5 +129,6 @@ const styles = StyleSheet.create({
   },
   subTitle: {
     color: "#DEACF5",
+    marginBottom: 20,
   },
 })
