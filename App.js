@@ -4,9 +4,13 @@ import { Audio } from "expo-av"
 import React, { useState } from "react"
 import { Image } from "expo-image"
 
-import soundsArray from "./assets/components/musicList"
+import {
+  sonidoBestialArray,
+  noLePegueArray,
+} from "./assets/components/musicList"
 
 const countSound = require("./assets/sounds/countdown.mp3")
+const countSoundLenght = 1890
 export default function App() {
   const [sound, setSound] = React.useState(null)
   const [titu, setTitu] = React.useState("Click a button to start")
@@ -21,7 +25,7 @@ export default function App() {
   const countDownSwitch = () => {
     setCountDown((previousState) => !previousState)
   }
-  const playSound1 = async () => {
+  const playCountDown = async () => {
     const { sound: soundObject } = await Audio.Sound.createAsync(
       require("./assets/sounds/countdown.mp3")
     )
@@ -31,31 +35,50 @@ export default function App() {
       console.error("Error playing countdown sound:", error)
     }
   }
-  const playSound = async (sound, x, loop = isEnabled) => {
-    setTitu(`Playing: ${x} ♫ `)
-    if (soundObject !== null) {
-      await soundObject.unloadAsync() // Stop and unload any previously playing sound
-    }
 
-    const { sound: newSoundObject } = await Audio.Sound.createAsync(sound, {
-      isLooping: loop,
-    })
-    setSoundObject(newSoundObject)
-
-    try {
-      await newSoundObject.playAsync()
-    } catch (error) {
-      console.error("Error playing sound:", error)
+  //Testing a new idea
+  async function playTogether(sound, songName, padName, loop = isEnabled) {
+    //Function 1
+    console.log(padName)
+    const playCountDown = async () => {
+      const { sound: soundObject } = await Audio.Sound.createAsync(
+        require("./assets/sounds/countdown.mp3")
+      )
+      try {
+        await soundObject.playAsync()
+      } catch (error) {
+        console.error("Error playing countdown sound:", error)
+      }
     }
-  }
-  const playWithCount = () => {
-    console.log("Button pressed")
+    //Function 2
     if (countDown) {
-      playSound1()
-      console.log("Countdown is on")
-    } else if (!countDown) {
+      playCountDown()
+    }
+    //Function  3
+    const playSound = async () => {
+      console.log(`${songName} is playing`)
+      setTitu(`Playing: ${songName} ♫ ${padName} 💃🏻`)
+      if (soundObject !== null) {
+        await soundObject.unloadAsync() // Stop and unload any previously playing sound
+      }
+
+      const { sound: newSoundObject } = await Audio.Sound.createAsync(sound, {
+        isLooping: loop,
+      })
+
+      setSoundObject(newSoundObject)
+
+      try {
+        await newSoundObject.playAsync()
+      } catch (error) {
+        console.error("Error playing sound:", error)
+      }
+    }
+    //Function 4
+    if (countDown) {
+      setTimeout(() => playSound(), countSoundLenght)
+    } else {
       playSound()
-      console.log("Countdown is off")
     }
   }
 
@@ -76,7 +99,7 @@ export default function App() {
     <View style={styles.container}>
       <Image
         source={require("./assets/sclogo.png")}
-        style={{ width: 100, height: 100, marginBottom: 20 }}
+        style={{ width: 70, height: 70, marginBottom: 20 }}
         contentFit="contain"
       />
       <Text style={styles.title}>SalsaColombia Dance Academy</Text>
@@ -85,14 +108,15 @@ export default function App() {
       <StatusBar backgroundColor="white" barStyle="dark-content" />
       {/* //Divider here */}
       <View style={styles.buttonContainer}>
-        {soundsArray.map((song) => (
+        {sonidoBestialArray.map((song) => (
           <Pressable
             key={song.id}
             style={styles.button}
-            // onPress={() => playSound(song.id, song.name, isEnabled)}
-            onPress={() => playSound(song.id, song.name, isEnabled)}
+            onPress={() =>
+              playTogether(song.id, song.name, song.padName, isEnabled)
+            }
           >
-            <Text style={styles.textInside}>{song.name}</Text>
+            <Text style={styles.textInside}>{song.padName}</Text>
           </Pressable>
         ))}
       </View>
