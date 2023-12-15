@@ -75,57 +75,57 @@ const sonidoBestialArray = [
 const noLePegueArray = [
   {
     id: 1,
-    name: "No le pegue a la negra",
+    name: "No le pegue - Intro",
     sound: require("../sounds/nolepegue/1.intro.mp3"),
-    padName: "Part 1",
+    padName: "Intro",
   },
   {
     id: 2,
     name: "No le pegue a la negra",
     sound: require("../sounds/nolepegue/2.part2.mp3"),
-    padName: "Part 2",
+    padName: "Part 1   ",
   },
   {
     id: 3,
     name: "No le pegue a la negra",
     sound: require("../sounds/nolepegue/3.part2.mp3"),
-    padName: "Part 3",
+    padName: "Part 2",
   },
   {
     id: 4,
     name: "No le pegue a la negra",
     sound: require("../sounds/nolepegue/4.transition.mp3"),
-    padName: "Part 4",
+    padName: "Transition     🌉",
   },
   {
     id: 5,
     name: "No le pegue a la negra",
     sound: require("../sounds/nolepegue/5.menspart.mp3"),
-    padName: "Part 5",
+    padName: "Mens Footwork   🎹              🕺🏽🕺🏽🕺🏽",
   },
   {
     id: 6,
     name: "No le pegue a la negra",
     sound: require("../sounds/nolepegue/6.padebure.mp3"),
-    padName: "Part 6",
+    padName: "Pa de Bure 💃🏻💃🏻💃🏻",
   },
   {
     id: 7,
     name: "No le pegue a la negra",
     sound: require("../sounds/nolepegue/7.parejas.mp3"),
-    padName: "Part 7",
+    padName: "Parejas       💃🏻🕺🏽",
   },
   {
     id: 8,
     name: "No le pegue a la negra",
     sound: require("../sounds/nolepegue/8.Tricks.mp3"),
-    padName: "Part 8",
+    padName: "Tricks         🤯💥",
   },
   {
     id: 9,
     name: "No le pegue a la negra",
     sound: require("../sounds/nolepegue/9.wholesong.mp3"),
-    padName: "Part 9",
+    padName: "Entire Song 🎶🎷🪘",
   },
 ]
 

@@ -107,12 +107,12 @@ export default function App() {
       <StatusBar backgroundColor="white" barStyle="dark-content" />
       {/* //Divider here */}
       <View style={styles.buttonContainer}>
-        {sonidoBestialArray.map((song) => (
+        {noLePegueArray.map((song) => (
           <Pressable
             key={song.id}
             style={styles.button}
             onPress={() =>
-              playTogether(song.id, song.name, song.padName, isEnabled)
+              playTogether(song.sound, song.name, song.padName, isEnabled)
             }
           >
             <Text style={styles.textInside}>{song.padName}</Text>
