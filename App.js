@@ -12,9 +12,8 @@ import {
 const countSound = require("./assets/sounds/countdown.mp3")
 const countSoundLenght = 1890
 export default function App() {
-  const [sound, setSound] = React.useState(null)
   const [titu, setTitu] = React.useState("Click a button to start")
-  const [url, setUrl] = React.useState("./assets/sounds/sound.mp3")
+
   const [soundObject, setSoundObject] = useState(null)
   const [isEnabled, setIsEnabled] = useState(false)
   const [countDown, setCountDown] = useState(false)
