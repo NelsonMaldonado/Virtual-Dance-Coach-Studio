@@ -11,7 +11,6 @@ import {
 import { Audio } from "expo-av"
 import React, { useState } from "react"
 import { Image } from "expo-image"
-import PickSong from "./assets/components/pickSong"
 
 import {
   sonidoBestialArray,
@@ -113,7 +112,7 @@ export default function App() {
       />
       <Text style={styles.title}>SalsaColombia Dance Academy</Text>
       {/* Modal goes here */}
-      <PickSong />
+
       {/* Modal ends here */}
       <Text style={styles.subTitle}> {titu}</Text>
 
