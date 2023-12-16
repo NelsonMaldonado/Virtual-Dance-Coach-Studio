@@ -1,5 +1,13 @@
 import { StatusBar } from "expo-status-bar"
-import { Button, Text, StyleSheet, View, Pressable, Switch } from "react-native"
+import {
+  Button,
+  Text,
+  Modal,
+  StyleSheet,
+  View,
+  Pressable,
+  Switch,
+} from "react-native"
 import { Audio } from "expo-av"
 import React, { useState } from "react"
 import { Image } from "expo-image"
@@ -17,6 +25,7 @@ export default function App() {
   const [soundObject, setSoundObject] = useState(null)
   const [isEnabled, setIsEnabled] = useState(false)
   const [countDown, setCountDown] = useState(false)
+
   const toggleSwitch = () => {
     setIsEnabled((previousState) => !previousState)
   }
@@ -102,6 +111,9 @@ export default function App() {
         contentFit="contain"
       />
       <Text style={styles.title}>SalsaColombia Dance Academy</Text>
+      {/* Modal goes here */}
+
+      {/* Modal ends here */}
       <Text style={styles.subTitle}> {titu}</Text>
 
       <StatusBar backgroundColor="white" barStyle="dark-content" />
