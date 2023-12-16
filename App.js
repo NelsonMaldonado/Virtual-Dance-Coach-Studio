@@ -107,7 +107,7 @@ export default function App() {
       <StatusBar backgroundColor="white" barStyle="dark-content" />
       {/* //Divider here */}
       <View style={styles.buttonContainer}>
-        {noLePegueArray.map((song) => (
+        {sonidoBestialArray.map((song) => (
           <Pressable
             key={song.id}
             style={styles.button}
