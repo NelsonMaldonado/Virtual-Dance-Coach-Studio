@@ -129,4 +129,6 @@ const noLePegueArray = [
   },
 ]
 
-export { sonidoBestialArray, noLePegueArray }
+const arrayOfSongs = [sonidoBestialArray, noLePegueArray]
+
+export default arrayOfSongs

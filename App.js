@@ -11,12 +11,9 @@ import {
 import { Audio } from "expo-av"
 import React, { useState } from "react"
 import { Image } from "expo-image"
-import SelectCountryScreen from "./assets/components/pickSong"
 
-import {
-  sonidoBestialArray,
-  noLePegueArray,
-} from "./assets/components/musicList"
+import arrayOfSongs from "./assets/components/musicList"
+import SelectDropdown from "react-native-select-dropdown"
 
 const countSound = require("./assets/sounds/countdown.mp3")
 const countSoundLenght = 1890
@@ -26,6 +23,14 @@ export default function App() {
   const [soundObject, setSoundObject] = useState(null)
   const [isEnabled, setIsEnabled] = useState(false)
   const [countDown, setCountDown] = useState(false)
+  //Usestate for array of songs
+  const [selectedArrayIndex, setSelectedArrayIndex] = useState(0)
+  const handleArrayChange = (index) => {
+    selectedArrayIndex(index)
+  }
+
+  const items = arrayOfSongs[selectedArrayIndex]
+  console.log(items)
 
   const toggleSwitch = () => {
     setIsEnabled((previousState) => !previousState)
@@ -113,14 +118,27 @@ export default function App() {
       />
       <Text style={styles.title}>SalsaColombia Dance Academy</Text>
       {/* Modal goes here */}
-      <SelectCountryScreen />
+      <SelectDropdown
+        data={items}
+        onSelect={(selectItem, index) => {
+          console.log(selectItem, index)
+        }}
+        buttonTextAfterSelection={(selectItem, index) => {
+          setSelectedArrayIndex(index)
+          return selectItem
+        }}
+        rowTextForSelection={(item, index) => {
+          return item
+        }}
+      />
+      {/* <DropdownComponent testProp="this is a test" /> */}
       {/* Modal ends here */}
       <Text style={styles.subTitle}> {titu}</Text>
 
       <StatusBar backgroundColor="white" barStyle="dark-content" />
       {/* //Divider here */}
       <View style={styles.buttonContainer}>
-        {sonidoBestialArray.map((song) => (
+        {items.map((song) => (
           <Pressable
             key={song.id}
             style={styles.button}
