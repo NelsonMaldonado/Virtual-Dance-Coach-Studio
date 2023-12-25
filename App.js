@@ -118,7 +118,7 @@ export default function App() {
       />
       <Text style={styles.title}>SalsaColombia Dance Academy</Text>
       {/* Modal goes here */}
-      <SelectDropdown
+      {/* <SelectDropdown
         data={items}
         onSelect={(selectItem, index) => {
           console.log(selectItem, index)
@@ -130,7 +130,7 @@ export default function App() {
         rowTextForSelection={(item, index) => {
           return item
         }}
-      />
+      /> */}
       {/* <DropdownComponent testProp="this is a test" /> */}
       {/* Modal ends here */}
       <Text style={styles.subTitle}> {titu}</Text>
