@@ -206,9 +206,9 @@ const styles = StyleSheet.create({
 
     width: 350,
     height: 470,
-    borderColor: "blue",
-    borderWidth: 0.5,
-    marginBottom: 20,
+    // borderColor: "blue",
+    // borderWidth: 0.5,
+    // marginBottom: 20,
   },
   title: {
     fontSize: 24,
