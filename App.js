@@ -24,7 +24,7 @@ export default function App() {
   const [isEnabled, setIsEnabled] = useState(false)
   const [countDown, setCountDown] = useState(false)
   //Usestate for array of songs
-  const [selectedArrayIndex, setSelectedArrayIndex] = useState(0)
+  const [selectedArrayIndex, setSelectedArrayIndex] = useState(1)
   const handleArrayChange = (index) => {
     selectedArrayIndex(index)
   }
